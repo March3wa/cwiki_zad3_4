@@ -9,9 +9,11 @@ import java.util.Random;
 public class GUI {
 
     JFrame ramka;
-    JPanel panel;
+    JPanel panelPrzycisk;
+    JPanel panelKolor;
     JButton kolorPrzycisk;
-    //JButton pozycjaPrzycisk;
+    //JButton pozycjaLicznik;
+    JLabel pozycjalicznik;
 
     public static void main(String[] args) {
         GUI gui = new GUI();
@@ -20,11 +22,16 @@ public class GUI {
 
     public void start() {
 
+        pozycjalicznik = new JLabel();
+        panelKolor = new JPanel();
         ramka = new JFrame();
-        panel = new JPanel();
+        panelPrzycisk = new JPanel();
         kolorPrzycisk = new JButton("Zmień kolor tła");
-        ramka.getContentPane().add(panel);
-        panel.add(BorderLayout.SOUTH, kolorPrzycisk);
+        ramka.getContentPane().add(panelKolor);
+        ramka.getContentPane().add(BorderLayout.EAST, kolorPrzycisk);
+        ramka.getContentPane().add(BorderLayout.SOUTH,panelPrzycisk);
+        panelPrzycisk.add(BorderLayout.CENTER, pozycjalicznik);
+        //panelPrzycisk.add(BorderLayout.CENTER,kolorPrzycisk);
         //panel.add(pozycjaPrzycisk);
         kolorPrzycisk.addActionListener(new KolorListener());
 
@@ -35,10 +42,15 @@ public class GUI {
     }
         class KolorListener implements ActionListener{
             Color color;
+            Graphics circle;
+            int i = 1;
+
             Random random = new Random();
             public void actionPerformed(ActionEvent e) {
                 color = new Color(random.nextInt(256),random.nextInt(256),random.nextInt(256));
-                panel.setBackground(color);
+                panelKolor.setBackground(color);
+                pozycjalicznik.setText("Kliknąłeś " + i + " razy");
+                i++;
             }
         }
 }
